@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div className='max-w-[1124px] h-screen mx-auto grid grid-cols-2 items-center'>
-      <main >
+      <main className='max-w-[30.5rem]'>
         <Image src={logoImg} alt=" NLW Copa" />
 
         <h1 className='mt-14 text-white text-5xl font-bold leading-tight'>
@@ -27,24 +27,24 @@ export default function Home() {
         </div>
 
         <form className='mt-10 flex gap-2' >
-          <input className='w-[19.1rem] h-14 rounded-[4px] items-center p-6 text-sm bg-gray-800 '  type="text" required placeholder='Qual nome do seu bolão?' />
-          <button type='submit'>CRIAR MEU BOLÃO</button>
+          <input className='w-[19.1rem] h-14 rounded-[4px] items-center p-6 text-sm bg-gray-800 border border-gray-200 text-gray-100'  type="text" required placeholder='Qual nome do seu bolão?' />
+          <button className='w-[10.5rem] bg-yellow-500 rounded-[4px] text-sm font-bold' type='submit'>CRIAR MEU BOLÃO</button>
         </form>
 
-        <p>Após criar seu bolão, você receberá um código único que poderá usar para convidar outras pessoas 🚀</p>
-        <div className='flex'>
-          <div className='flex'>
+        <span className='text-gray-100 text-sm flex mt-4'>Após criar seu bolão, você receberá um código único que poderá usar para convidar outras pessoas 🚀</span>
+        <div className='flex mt-10 border-t-[1px] justify-between'>
+          <div className=' w-[100%] flex mt-10 gap-6  items-center'>
             <Image src={iconCheckImg} alt="" />
             <div >
-              <span>+2.034</span>
-              <p>Bolões criados </p>
+              <span className='text-gray-50 font-bold text-2xl'>+2.034</span>
+              <p className='text-gray-50  text-base'>Bolões criados </p>
             </div>
           </div>
-          <div  className='flex gap-5'>
+          <div className='w-[100%] flex mt-10 gap-6 items-center justify-end  border-l-[1px]' >
             <Image src={iconCheckImg} alt="" />
             <div>
-              <span>+192.847</span>
-              <p>Palpites enviados </p>
+              <span  className='text-gray-50 font-bold text-2xl'>+192.847</span>
+              <p className='text-gray-50  text-base'>Palpites enviados </p>
             </div>
           </div>
         </div>
