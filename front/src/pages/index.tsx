@@ -3,15 +3,18 @@ import appPreviewImg from '../assets/app-nlw-copa-preview.png'
 import logoImg from '../assets/logo.svg'
 import usersAavatarImg from '../assets/users-avatar-example.png'
 import iconCheckImg from '../assets/icon-check.svg'
+import { api } from '../lib/axios'
 
-/* interface HomeProps{
-  count:number
-} */
+ interface HomeProps{
+  poolCount:number
+  guessesCount:number
+  usersCount:number
+}
 
-export default function Home() {
+export default function Home(props:HomeProps) {
 
   return (
-    <div className='max-w-[1124px] h-screen mx-auto grid grid-cols-2 items-center'>
+    <div className='max-w-[1124px] h-screen mx-auto grid grid-cols-2 items-center gap-28'>
       <main className='max-w-[30.5rem]'>
         <Image src={logoImg} alt=" NLW Copa" />
 
@@ -22,28 +25,29 @@ export default function Home() {
         <div className='mt-10 gap-2 flex items-center'>
           <Image src={usersAavatarImg} alt="" />
           <strong className='text-gray-100 text-xl'>
-            <span className='text-ignite-500'> +12.592</span> pessoas já estão usando
+            <span className='text-ignite-500'> +{props.usersCount} </span> pessoas já estão usando
           </strong>
         </div>
 
         <form className='mt-10 flex gap-2' >
-          <input className='w-[19.1rem] h-14 rounded-[4px] items-center p-6 text-sm bg-gray-800 border border-gray-200 text-gray-100'  type="text" required placeholder='Qual nome do seu bolão?' />
-          <button className='w-[10.5rem] bg-yellow-500 rounded-[4px] text-sm font-bold' type='submit'>CRIAR MEU BOLÃO</button>
+          <input className='flex-1 px-6 py-4 rounded items-center  text-sm bg-gray-800 border border-gray-600 text-gray-100'  type="text" required placeholder='Qual nome do seu bolão?' />
+          <button className='px-6 py-4 bg-yellow-500 rounded items-center text-sm text-gray-900 font-bold hover:bg-yellow-700' type='submit'>CRIAR MEU BOLÃO</button>
         </form>
 
-        <span className='text-gray-100 text-sm flex mt-4'>Após criar seu bolão, você receberá um código único que poderá usar para convidar outras pessoas 🚀</span>
-        <div className='flex mt-10 border-t-[1px] justify-between'>
-          <div className=' w-[100%] flex mt-10 gap-6  items-center'>
+        <p className='text-gray-300 text-sm flex mt-4 leading-relaxed'>Após criar seu bolão, você receberá um código único que poderá usar para convidar outras pessoas 🚀</p>
+       
+        <div className='flex mt-10 border-t border-gray-600  justify-between'>
+          <div className='flex flex-1 mt-10 gap-6  items-center'>
             <Image src={iconCheckImg} alt="" />
             <div >
-              <span className='text-gray-50 font-bold text-2xl'>+2.034</span>
+              <span className='text-gray-50 font-bold text-2xl'>+{props.poolCount} </span>
               <p className='text-gray-50  text-base'>Bolões criados </p>
             </div>
           </div>
-          <div className='w-[100%] flex mt-10 gap-6 items-center justify-end  border-l-[1px]' >
+          <div className='flex flex-1 mt-10 gap-6 items-center justify-end  border-l  border-gray-600 ' >
             <Image src={iconCheckImg} alt="" />
             <div>
-              <span  className='text-gray-50 font-bold text-2xl'>+192.847</span>
+              <span  className='text-gray-50 font-bold text-2xl'>+{props.guessesCount} </span>
               <p className='text-gray-50  text-base'>Palpites enviados </p>
             </div>
           </div>
@@ -58,18 +62,24 @@ export default function Home() {
   )
 }
 
-/*
-export const getServerSideProps = async ()=>{
-  const response = await fetch('http://localhost:3333/pools/count')
-  const data = await response.json() 
 
-  console.log(data)
+export const getServerSideProps = async ()=>{
+
+  const [poolCountResponse,guessesCountResponse, usersCountResponse ] = await Promise.all([
+    api.get('/pools/count'),
+    api.get('/guesses/count'),
+    api.get('/users/count')
+  ])
+
+
 
   return{
     props:{
-      count: data.count
+      poolCount: poolCountResponse.data.count,
+      guessesCount: guessesCountResponse.data.count,
+      usersCount: usersCountResponse.data.count
     }
   }
 
 }
-*/
+
